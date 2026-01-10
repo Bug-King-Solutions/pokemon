@@ -4,7 +4,7 @@ import '../../data/models/flower_mon.dart';
 import '../../data/services/generator_service.dart';
 import '../../data/services/storage_service.dart';
 
-// Today's Flower-Mon Provider
+// Today's Flowermon Provider
 final todayFlowerMonProvider = FutureProvider<FlowerMon?>((ref) async {
   final storageService = getIt<StorageService>();
   final generatorService = getIt<GeneratorService>();
@@ -13,7 +13,7 @@ final todayFlowerMonProvider = FutureProvider<FlowerMon?>((ref) async {
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   
-  // Check if we already have today's Flower-Mon
+  // Check if we already have today's flowermon
   final saved = storageService.getTodayFlowerMon();
   
   if (saved != null) {
@@ -29,14 +29,14 @@ final todayFlowerMonProvider = FutureProvider<FlowerMon?>((ref) async {
     }
   }
   
-  // Generate new Flower-Mon for today
+  // Generate new flowermon for today
   final newFlowerMon = generatorService.generateForDate(today);
   await storageService.saveTodayFlowerMon(newFlowerMon);
   
   return newFlowerMon;
 });
 
-// Refresh today's Flower-Mon
+// Refresh today's flowermon
 final refreshTodayFlowerMonProvider = Provider((ref) {
   return () => ref.invalidate(todayFlowerMonProvider);
 });

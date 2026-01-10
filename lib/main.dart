@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     return UpdateChecker(
       checkOnStart: true,
       child: MaterialApp.router(
-        title: 'Flower-Mon',
+        title: 'Flowermon',
         theme: AppTheme.lightTheme,
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,

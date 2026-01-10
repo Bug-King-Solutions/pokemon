@@ -9,6 +9,8 @@ import '../../presentation/screens/about/about_screen.dart';
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/splash',
+    debugLogDiagnostics: false,
+    errorBuilder: (context, state) => const SplashScreen(),
     routes: [
       GoRoute(
         path: '/splash',

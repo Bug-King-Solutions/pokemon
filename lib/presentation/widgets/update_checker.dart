@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'providers/update_provider.dart';
+import 'package:pokemon/presentation/providers/update_provider.dart';
 import 'update_dialog.dart';
 import '../../core/di/setup_locator.dart';
 import '../../data/services/update_service.dart';

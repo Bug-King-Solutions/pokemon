@@ -34,7 +34,7 @@ class DexScreen extends ConsumerWidget {
         data: (collection) {
           if (collection.isEmpty) {
             return const EmptyDexState(
-              message: 'Your FlowerDex is empty.\nStart collecting daily Flower-Mons!',
+              message: 'Your FlowerDex is empty.\nStart collecting daily flowermons!',
               icon: Icons.eco_outlined,
             );
           }
@@ -50,7 +50,7 @@ class DexScreen extends ConsumerWidget {
                 final flowerMon = collection[index];
                 return FlowerMonCard(
                   flowerMon: flowerMon,
-                  onTap: () => context.go('/detail/${flowerMon.id}'),
+                  onTap: () => context.push('/detail/${flowerMon.id}'),
                   showAnimation: false,
                 );
               },
@@ -85,7 +85,7 @@ class DexScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.go('/today'),
+          onPressed: () => context.push('/today'),
         icon: const Icon(Icons.today),
         label: const Text('Today'),
       ),

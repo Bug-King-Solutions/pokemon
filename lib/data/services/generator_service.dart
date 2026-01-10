@@ -4,9 +4,9 @@ import '../models/flower_mon.dart';
 class GeneratorService {
   GeneratorService();
 
-  /// Generate a Flower-Mon deterministically based on a date
+  /// Generate a flowermon deterministically based on a date
   FlowerMon generateForDate(DateTime date) {
-    // Create a deterministic seed from the date (same date = same Flower-Mon)
+    // Create a deterministic seed from the date (same date = same flowermon)
     final dateSeed = DateTime(date.year, date.month, date.day);
     final seed = dateSeed.millisecondsSinceEpoch;
     final random = Random(seed);

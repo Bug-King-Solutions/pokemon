@@ -30,7 +30,7 @@ class AboutScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             Center(
               child: Text(
-                'Flower-Mon',
+                'Flowermon',
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       color: AppTheme.deepBurgundy,
                       fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class AboutScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Flower-Mon is a daily collectible app that generates one unique animated Flower-Mon every morning. Each Flower-Mon is procedurally generated, never repeated, and stored permanently in your collection.',
+              'Flowermon is a daily collectible app that generates one unique animated flowermon every morning. Each flowermon is procedurally generated, never repeated, and stored permanently in your collection.',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.6,
                   ),

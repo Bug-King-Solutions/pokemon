@@ -17,7 +17,7 @@ class StorageService {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  // Today's Flower-Mon
+  // Today's Flowermon
   FlowerMon? getTodayFlowerMon() {
     final jsonStr = _prefs.getString(_todayKey);
     if (jsonStr == null) return null;

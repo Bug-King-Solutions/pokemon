@@ -1,5 +1,5 @@
 name: pokemon
-description: A daily collectible app for Flower-Mons - magical creatures that bloom each day.
+description: A daily collectible app for flowermons - magical creatures that bloom each day.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -25,7 +25,7 @@ dependencies:
   path_provider: ^2.1.1
   
   # Notifications
-  flutter_local_notifications: ^16.3.0
+  flutter_local_notifications: ^17.0.0
   timezone: ^0.9.2
   
   # Utilities

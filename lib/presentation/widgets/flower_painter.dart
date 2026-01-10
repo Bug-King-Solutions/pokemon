@@ -18,12 +18,13 @@ class FlowerPainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final primaryColor = Color(flowerMon.primaryColor);
     final secondaryColor = Color(flowerMon.secondaryColor);
+    final maxRadius = math.min(size.width, size.height) / 2;
 
-    // Draw petals
-    _drawPetals(canvas, center, size.width / 2, primaryColor, secondaryColor);
+    // Draw petals radiating from center (bouquet effect)
+    _drawPetals(canvas, center, maxRadius, primaryColor, secondaryColor);
 
-    // Draw center
-    _drawCenter(canvas, center, size.width / 4, secondaryColor);
+    // Draw center on top
+    _drawCenter(canvas, center, maxRadius * 0.15, secondaryColor);
   }
 
   void _drawPetals(
@@ -35,15 +36,14 @@ class FlowerPainter extends CustomPainter {
   ) {
     final petalCount = 6;
     final angleStep = 2 * math.pi / petalCount;
+    final petalRadius = radius * 0.75; // Larger petals that overlap for bouquet effect
 
-    for (int i = 0; i < petalCount; i++) {
+    // Draw petals from back to front for proper overlap
+    for (int i = petalCount - 1; i >= 0; i--) {
       final angle = i * angleStep;
-      final petalCenter = Offset(
-        center.dx + math.cos(angle) * (radius * 0.4),
-        center.dy + math.sin(angle) * (radius * 0.4),
-      );
-
-      _drawPetal(canvas, petalCenter, radius * 0.6, angle, primaryColor);
+      
+      // Draw each petal radiating from center (bouquet effect with overlap)
+      _drawPetal(canvas, center, petalRadius, angle, primaryColor);
     }
   }
 
@@ -54,8 +54,8 @@ class FlowerPainter extends CustomPainter {
     double rotation,
     Color color,
   ) {
+    // Create paint with appropriate opacity for overlapping effect
     final paint = Paint()
-      ..color = color.withOpacity(0.8)
       ..style = PaintingStyle.fill;
 
     canvas.save();
@@ -67,18 +67,23 @@ class FlowerPainter extends CustomPainter {
     switch (flowerMon.petalShape) {
       case PetalShape.round:
         _drawRoundPetal(path, size);
+        paint.color = color.withOpacity(0.65);
         break;
       case PetalShape.pointed:
         _drawPointedPetal(path, size);
+        paint.color = color.withOpacity(0.7);
         break;
       case PetalShape.heart:
         _drawHeartPetal(path, size);
+        paint.color = color.withOpacity(0.65);
         break;
       case PetalShape.star:
         _drawStarPetal(path, size);
+        paint.color = color.withOpacity(0.7);
         break;
       case PetalShape.droplet:
         _drawDropletPetal(path, size);
+        paint.color = color.withOpacity(0.7);
         break;
     }
 
@@ -87,32 +92,37 @@ class FlowerPainter extends CustomPainter {
   }
 
   void _drawRoundPetal(Path path, double size) {
-    path.addOval(Rect.fromLTWH(-size / 2, -size / 3, size, size * 2 / 3));
+    // Round petal radiating from center
+    path.addOval(Rect.fromLTWH(-size / 2, -size / 2, size, size));
   }
 
   void _drawPointedPetal(Path path, double size) {
-    path.moveTo(0, -size / 2);
-    path.quadraticBezierTo(-size / 2, 0, 0, size / 2);
-    path.quadraticBezierTo(size / 2, 0, 0, -size / 2);
+    // Pointed petal (teardrop shape) radiating from center
+    path.moveTo(0, 0); // Start from center
+    path.quadraticBezierTo(-size / 3, -size / 5, -size / 2.5, -size * 0.65);
+    path.quadraticBezierTo(0, -size * 0.8, size / 2.5, -size * 0.65);
+    path.quadraticBezierTo(size / 3, -size / 5, 0, 0);
     path.close();
   }
 
   void _drawHeartPetal(Path path, double size) {
-    path.moveTo(0, size / 3);
-    path.quadraticBezierTo(-size / 3, size / 3, -size / 3, 0);
-    path.quadraticBezierTo(-size / 3, -size / 6, 0, -size / 3);
-    path.quadraticBezierTo(size / 3, -size / 6, size / 3, 0);
-    path.quadraticBezierTo(size / 3, size / 3, 0, size / 3);
+    // Heart-shaped petal radiating from center
+    path.moveTo(0, 0);
+    path.quadraticBezierTo(-size / 4, -size / 4, -size / 2.5, -size * 0.6);
+    path.quadraticBezierTo(0, -size * 0.75, size / 2.5, -size * 0.6);
+    path.quadraticBezierTo(size / 4, -size / 4, 0, 0);
     path.close();
   }
 
   void _drawStarPetal(Path path, double size) {
-    final outerRadius = size / 2;
-    final innerRadius = size / 4;
+    // Star-shaped petal radiating from center
+    final outerRadius = size * 0.7;
+    final innerRadius = size * 0.3;
     final points = 5;
+    final startAngle = -math.pi / 2; // Start from top
 
     for (int i = 0; i < points * 2; i++) {
-      final angle = i * math.pi / points;
+      final angle = startAngle + (i * math.pi / points);
       final radius = i.isEven ? outerRadius : innerRadius;
       final x = radius * math.cos(angle);
       final y = radius * math.sin(angle);
@@ -127,15 +137,17 @@ class FlowerPainter extends CustomPainter {
   }
 
   void _drawDropletPetal(Path path, double size) {
-    path.moveTo(0, -size / 2);
-    path.quadraticBezierTo(-size / 2, size / 4, 0, size / 2);
-    path.quadraticBezierTo(size / 2, size / 4, 0, -size / 2);
+    // Droplet petal radiating from center
+    path.moveTo(0, 0);
+    path.quadraticBezierTo(-size / 3, -size / 4, -size / 2.5, -size * 0.7);
+    path.quadraticBezierTo(0, -size * 0.85, size / 2.5, -size * 0.7);
+    path.quadraticBezierTo(size / 3, -size / 4, 0, 0);
     path.close();
   }
 
   void _drawCenter(Canvas canvas, Offset center, double radius, Color color) {
     final paint = Paint()
-      ..color = color.withOpacity(0.9)
+      ..color = color.withOpacity(0.95)
       ..style = PaintingStyle.fill;
 
     switch (flowerMon.centerDesign) {
@@ -156,7 +168,7 @@ class FlowerPainter extends CustomPainter {
 
   void _drawSpiraledCenter(Canvas canvas, Offset center, double radius, Color color) {
     final paint = Paint()
-      ..color = color.withOpacity(0.9)
+      ..color = color.withOpacity(0.95)
       ..style = PaintingStyle.fill;
 
     for (int i = 3; i > 0; i--) {
@@ -167,11 +179,11 @@ class FlowerPainter extends CustomPainter {
 
   void _drawLayeredCenter(Canvas canvas, Offset center, double radius, Color color) {
     final paint1 = Paint()
-      ..color = color.withOpacity(0.8)
+      ..color = color.withOpacity(0.9)
       ..style = PaintingStyle.fill;
 
     final paint2 = Paint()
-      ..color = color.withOpacity(0.5)
+      ..color = color.withOpacity(0.6)
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, radius, paint1);
@@ -181,7 +193,7 @@ class FlowerPainter extends CustomPainter {
 
   void _drawCrystallineCenter(Canvas canvas, Offset center, double radius, Color color) {
     final paint = Paint()
-      ..color = color.withOpacity(0.9)
+      ..color = color.withOpacity(0.95)
       ..style = PaintingStyle.fill;
 
     final path = Path();
@@ -203,7 +215,7 @@ class FlowerPainter extends CustomPainter {
 
     // Add inner circle
     final innerPaint = Paint()
-      ..color = color.withOpacity(0.6)
+      ..color = color.withOpacity(0.7)
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, radius * 0.5, innerPaint);
   }

@@ -177,7 +177,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
               trailing: const Icon(Icons.chevron_right),
-              onTap: () => context.go('/about'),
+              onTap: () => context.push('/about'),
             ),
           ),
         ],

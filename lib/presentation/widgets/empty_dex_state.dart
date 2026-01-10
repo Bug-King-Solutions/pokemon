@@ -7,7 +7,7 @@ class EmptyDexState extends StatelessWidget {
 
   const EmptyDexState({
     super.key,
-    this.message = 'No Flower-Mons collected yet.\nStart collecting daily!',
+    this.message = 'No flowermons collected yet.\nStart collecting daily!',
     this.icon = Icons.eco_outlined,
   });
 

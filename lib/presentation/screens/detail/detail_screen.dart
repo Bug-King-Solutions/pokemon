@@ -23,7 +23,7 @@ class DetailScreen extends ConsumerWidget {
     final collectionAsync = ref.watch(flowerDexProvider);
 
     return AppScaffold(
-      title: 'Flower-Mon Details',
+      title: 'Flowermon Details',
       body: collectionAsync.when(
         data: (collection) {
           final flowerMon = collection.firstWhere(

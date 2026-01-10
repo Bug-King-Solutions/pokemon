@@ -11,10 +11,8 @@ import 'package:open_filex/open_filex.dart';
 
 class UpdateService {
   // GitHub Releases Configuration
-  // Replace these with your GitHub username and repository name
-  // Example: username: 'yourusername', repo: 'pokemon'
-  static const String _githubUsername = 'YOUR_GITHUB_USERNAME'; // TODO: Update this
-  static const String _githubRepo = 'YOUR_REPO_NAME'; // TODO: Update this
+  static const String _githubUsername = 'Bug-King-Solutions';
+  static const String _githubRepo = 'pokemon';
   
   // GitHub Releases API endpoint
   static String get _updateCheckUrl => 

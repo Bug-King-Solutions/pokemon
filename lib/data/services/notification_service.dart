@@ -28,6 +28,21 @@ class NotificationService {
       onDidReceiveNotificationResponse: _onNotificationTapped,
     );
 
+    // Create notification channel (required for Android 8.0+)
+    final androidPlugin = _notificationsPlugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    
+    if (androidPlugin != null) {
+      await androidPlugin.createNotificationChannel(
+        const AndroidNotificationChannel(
+          'daily_flower_mon',
+          'Daily Flowermon',
+          description: 'Notifications for daily flowermon collection',
+          importance: Importance.high,
+        ),
+      );
+    }
+
     // Request permissions
     await _requestPermissions();
   }
@@ -67,16 +82,17 @@ class NotificationService {
     await _notificationsPlugin.cancel(0);
 
     final message = recipientName != null && recipientName.isNotEmpty
-        ? 'A new Flower-Mon bloomed for $recipientName 🌸⚡'
-        : 'A new Flower-Mon bloomed for you 🌸⚡';
+        ? 'A new flowermon bloomed for $recipientName 🌸⚡'
+        : 'A new flowermon bloomed for you 🌸⚡';
 
     final androidDetails = AndroidNotificationDetails(
       'daily_flower_mon',
-      'Daily Flower-Mon',
-      channelDescription: 'Notifications for daily Flower-Mon collection',
+      'Daily Flowermon',
+      channelDescription: 'Notifications for daily flowermon collection',
       importance: Importance.high,
       priority: Priority.high,
       icon: '@mipmap/ic_launcher',
+      category: AndroidNotificationCategory.reminder,
     );
 
     const iosDetails = DarwinNotificationDetails(
@@ -109,7 +125,7 @@ class NotificationService {
     // Schedule repeating daily notification
     await _notificationsPlugin.zonedSchedule(
       0,
-      'Your Daily Flower-Mon',
+      'Your Daily Flowermon',
       message,
       scheduledDate,
       notificationDetails,
@@ -117,6 +133,7 @@ class NotificationService {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
+      payload: 'daily_flower_mon',
     );
   }
 
@@ -127,11 +144,12 @@ class NotificationService {
   Future<void> showTestNotification() async {
     const androidDetails = AndroidNotificationDetails(
       'daily_flower_mon',
-      'Daily Flower-Mon',
-      channelDescription: 'Notifications for daily Flower-Mon collection',
+      'Daily Flowermon',
+      channelDescription: 'Notifications for daily flowermon collection',
       importance: Importance.high,
       priority: Priority.high,
       icon: '@mipmap/ic_launcher',
+      category: AndroidNotificationCategory.reminder,
     );
 
     const iosDetails = DarwinNotificationDetails(
@@ -148,8 +166,9 @@ class NotificationService {
     await _notificationsPlugin.show(
       999,
       'Test Notification',
-      'A new Flower-Mon bloomed for you 🌸⚡',
+      'A new flowermon bloomed for you 🌸⚡',
       notificationDetails,
+      payload: 'test_notification',
     );
   }
 }

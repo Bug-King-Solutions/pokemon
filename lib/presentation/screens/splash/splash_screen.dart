@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'Flower-Mon',
+                      'Flowermon',
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
                             color: AppTheme.deepBurgundy,
                             fontWeight: FontWeight.bold,

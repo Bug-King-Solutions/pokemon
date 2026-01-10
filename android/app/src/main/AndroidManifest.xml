@@ -15,7 +15,7 @@
         android:maxSdkVersion="32"/>
     
     <application
-        android:label="Flower-Mon"
+        android:label="Flowermon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

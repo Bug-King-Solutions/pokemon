@@ -23,6 +23,7 @@ class AppScaffold extends StatelessWidget {
           ? AppBar(
               title: title != null ? Text(title!) : null,
               actions: actions,
+              automaticallyImplyLeading: true,
             )
           : null,
       body: SafeArea(
