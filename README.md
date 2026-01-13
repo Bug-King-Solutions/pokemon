@@ -1,6 +1,6 @@
-# Flower-Mon 🌸
+# Flowermon 🌸
 
-A daily collectible app for magical Flower-Mons - procedurally generated creatures that bloom each day.
+A daily collectible app for magical Flowermons - procedurally generated creatures that bloom each day.
 
 ## Features
 
