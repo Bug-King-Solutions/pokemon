@@ -36,6 +36,9 @@ dependencies:
   url_launcher: ^6.2.2
   permission_handler: ^11.1.0
   open_filex: ^4.3.2
+  confetti: ^0.7.0
+  cached_network_image: ^3.3.1
+  flutter_svg: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -54,13 +57,13 @@ flutter:
 
 # Native Splash Screen Configuration
 flutter_native_splash:
-  color: "#FFF8F0"  # Cream White from theme
+  color: "#FFFFFF"  # White background
   image: assets/imges/logo.png
-  color_dark: "#4A2C5B"  # Deep Plum from theme
+  color_dark: "#FFFFFF"  # White background for dark mode too
   image_dark: assets/imges/logo.png
   android_12:
     image: assets/imges/logo.png
-    color: "#FFF8F0"
+    color: "#FFFFFF"
   ios: true
   android: true
   web: true

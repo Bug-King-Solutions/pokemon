@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sqflite/sqflite.dart';
 import 'core/di/setup_locator.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
@@ -9,6 +10,10 @@ import 'presentation/widgets/update_checker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize sqflite database factory (required for cached_network_image)
+  // This fixes the "databaseFactory not initialized" error
+  databaseFactory = databaseFactory;
   
   // Initialize dependency injection
   await setupLocator();
